@@ -126,5 +126,5 @@ npm run dev
 MIT License
 ---
 
-⭐ Demonstração completa de MEVN Stack para portfólio profissional!
+⭐ Mereço uma estrela?
 

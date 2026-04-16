@@ -1,130 +1,80 @@
-# 📝 Real-Time Blog Platform - MEVN Stack
+# 🚀 Real-Time Blog Platform - Production Grade
 
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
-![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?logo=vue.js&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+Uma plataforma de blog moderna, escalável e segura construída com a MEVN Stack (MongoDB, Express, Vue.js 3, Node.js).
 
-Plataforma completa de blog com CRUD, busca em tempo real, estatísticas e interface moderna usando MEVN Stack.
+Este projeto foi reestruturado para seguir as melhores práticas de engenharia de software, incluindo arquitetura MVC, segurança reforçada, gerenciamento de estado via composables e testes automatizados.
 
-## ✨ Funcionalidades
+## ✨ Diferenciais desta versão (Refatorada)
 
-### Backend (Node.js + Express + MongoDB)
-- ✅ **API RESTful Completa**: CRUD de posts com validação
-- 🔍 **Busca Avançada**: Text search com MongoDB
-- 📊 **Estatísticas em Tempo Real**: Views, likes, comentários
-- 🏷️ **Sistema de Tags**: Categorização flexível
-- ❤️ **Sistema de Likes**: Interações em tempo real
-- 💬 **Comentários**: Sistema completo de comentários
-- ⭐ **Posts em Destaque**: Highlight de conteúdo importante
-- 📈 **Aggregation Pipeline**: MongoDB para analytics
-
-### Frontend (Vue.js 3 + Composition API)
-- 🎨 **Interface Moderna**: Design responsivo e gradientes
-- ⚡ **Vue 3 Composition API**: Código reativo e performático
-- 🔄 **Real-Time Updates**: Atualização automática de dados
-- 🔍 **Filtros Dinâmicos**: Por categoria e busca textual
-- 📱 **Mobile-First**: Totalmente responsivo
-- 🎭 **Modais Interativos**: Formulários elegantes
-- ✨ **Animações Suaves**: Transições CSS
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js 16+
-- MongoDB 5+ (local ou MongoDB Atlas)
-- npm ou yarn
-
-### Instalação
-
-#### 1. Backend
-cd backend
-npm install
-
-Criar arquivo .env
-echo "MONGODB_URI=mongodb://localhost:27017/blog-platform
-PORT=5000" > .env
-npm run dev
-
-
-#### 2. Frontend
-cd frontend
-npm install
-npm run dev
-
-
-#### 3. Acessar
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000/api
-
-## 📡 API Endpoints
-
-### Posts
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/posts` | Lista posts (com filtros) |
-| GET | `/api/posts/featured` | Posts em destaque |
-| GET | `/api/posts/stats` | Estatísticas gerais |
-| GET | `/api/posts/:id` | Busca post específico |
-| POST | `/api/posts` | Cria novo post |
-| PUT | `/api/posts/:id` | Atualiza post |
-| DELETE | `/api/posts/:id` | Deleta post |
-| POST | `/api/posts/:id/like` | Adiciona like |
-| POST | `/api/posts/:id/comments` | Adiciona comentário |
-
-### Parâmetros de Query
-- `category`: Filtra por categoria
-- `search`: Busca textual
-- `sort`: Ordenação (ex: `-createdAt`)
-- `limit`: Limite de resultados
-- `page`: Paginação
+- **Arquitetura MVC no Backend**: Separação clara entre rotas, controladores e modelos.
+- **Segurança de Produção**: Implementação de `helmet`, `cors` configurado e `express-rate-limit`.
+- **Frontend Moderno**: Uso de Vue 3 `Composition API` com `<script setup>` e `Composables`.
+- **DX (Developer Experience)**: Padronização com `ESLint` e `Prettier`.
+- **Confiabilidade**: Testes unitários com `Jest` (Backend) e `Vitest` (Frontend).
+- **UI Premium**: Design com glassmorphism, notificações toast e transições suaves.
 
 ## 🛠️ Tecnologias
 
 ### Backend
-- **Node.js**: Runtime JavaScript
-- **Express.js**: Framework web
-- **MongoDB**: Banco NoSQL
-- **Mongoose**: ODM para MongoDB
-- **express-validator**: Validação de dados
-- **CORS**: Cross-Origin Resource Sharing
+- **Node.js & Express**: API RESTful robusta.
+- **MongoDB & Mongoose**: Modelagem de dados e performance.
+- **Security**: `helmet`, `express-rate-limit`, `cors`.
+- **Validation**: `express-validator`.
 
 ### Frontend
-- **Vue.js 3**: Framework progressivo
-- **Composition API**: Reatividade moderna
-- **Vite**: Build tool ultra-rápido
-- **Axios**: HTTP client
-- **CSS3**: Gradientes e animações
+- **Vue.js 3**: Framework reativo de alta performance.
+- **Vite**: Build system ultra-rápido.
+- **Toastification**: Feedback visual premium.
+- **Axios**: Cliente HTTP com interceptores globais.
 
+## 🚀 Como Executar
 
-## 🎯 Conceitos Demonstrados
+### Pré-requisitos
+- Node.js 18+
+- MongoDB 6+
 
-- ✅ **MEVN Stack Completo**: MongoDB + Express + Vue + Node
-- ✅ **RESTful API**: Endpoints bem estruturados
-- ✅ **MongoDB Aggregation**: Queries complexas
-- ✅ **Vue 3 Composition API**: Código moderno e reativo
-- ✅ **Component Architecture**: Componentização Vue
-- ✅ **State Management**: Gerenciamento de estado
-- ✅ **Form Validation**: Backend e frontend
-- ✅ **Error Handling**: Tratamento robusto de erros
-- ✅ **Responsive Design**: Mobile-first CSS
+### 1. Servidor (Backend)
+```bash
+cd backend
+npm install
+cp .env.example .env # Configure sua URI do MongoDB
+npm run dev
+```
 
-## 🔮 Melhorias Futuras
+### 2. Cliente (Frontend)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- [ ] Autenticação JWT
-- [ ] Upload de imagens (Cloudinary)
-- [ ] Editor Markdown
-- [ ] Paginação infinita
-- [ ] WebSocket para real-time
-- [ ] PWA (Progressive Web App)
-- [ ] Dark mode
-- [ ] SEO otimizado
-- [ ] Testes unitários
+## 🧪 Testes e Qualidade
 
-## 📄 Licença
+### Backend
+- `npm test`: Executa suíte de testes com Jest.
+- `npm run lint`: Verifica padrões de código.
+- `npm run format`: Corrige formatação automaticamente.
 
-MIT License
+### Frontend
+- `npm run test`: Executa testes com Vitest.
+
+## 📁 Estrutura do Projeto
+
+```text
+├── backend/
+│   ├── config/         # Configurações de DB
+│   ├── controllers/    # Lógica de negócio
+│   ├── middlewares/    # Segurança e erro
+│   ├── models/         # Esquemas do Mongoose
+│   ├── routes/         # Definição de endpoints
+│   └── tests/          # Testes Jest
+└── frontend/
+    ├── src/
+    │   ├── components/ # Componentes reutilizáveis
+    │   ├── composables/# Lógica compartilhada
+    │   ├── services/   # Abstração de API
+    │   └── assets/     # Estilos e imagens
+```
+
 ---
-
-⭐ Mereço uma estrela?
-
+Desenvolvido com foco em **Qualidade Máxima** e **Performance**.

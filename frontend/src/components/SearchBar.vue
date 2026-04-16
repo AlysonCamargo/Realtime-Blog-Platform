@@ -1,23 +1,24 @@
 <template>
-    <div class="search-bar">
-      <div class="search-input-wrapper">
-        <span class="search-icon">🔍</span>
-        <input
-          :value="search"
-          @input="$emit('update:search', $event.target.value)"
-          @keyup.enter="$emit('search')"
-          type="text"
-          placeholder="Buscar posts..."
-          class="search-input"
-        >
-      </div>
-  
+  <div class="search-bar">
+    <div class="search-input-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        :value="search"
+        @input="$emit('update:search', $event.target.value)"
+        @keyup.enter="$emit('search')"
+        type="text"
+        placeholder="Search insights..."
+        class="search-input"
+      >
+    </div>
+
+    <div class="select-wrapper">
       <select
         :value="category"
         @change="$emit('update:category', $event.target.value); $emit('search')"
         class="category-select"
       >
-        <option value="All">Todas as Categorias</option>
+        <option value="All">All Categories</option>
         <option value="Technology">Technology</option>
         <option value="Lifestyle">Lifestyle</option>
         <option value="Travel">Travel</option>
@@ -25,21 +26,19 @@
         <option value="Business">Business</option>
         <option value="Other">Other</option>
       </select>
-  
-      <button @click="$emit('search')" class="btn btn-primary">
-        Buscar
-      </button>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'SearchBar',
-    props: {
-      search: String,
-      category: String
-    },
-    emits: ['update:search', 'update:category', 'search']
-  };
-  </script>
-  
+
+    <button @click="$emit('search')" class="btn btn-primary search-btn">
+      Search
+    </button>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  search: String,
+  category: String
+});
+
+defineEmits(['update:search', 'update:category', 'search']);
+</script>

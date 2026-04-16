@@ -1,69 +1,62 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
+const connectDB = require('./config/db');
+const { errorHandler } = require('./middlewares/errorHandler');
+const postRoutes = require('./routes/posts');
+
+// Initialize App
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// Connect to Database
+connectDB();
+
+// Security and Performance Middlewares
+app.use(helmet()); // Set security HTTP headers
+app.use(cors()); // Enable CORS
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); // Request logging in dev environment
+}
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes'
+});
+app.use('/api/', limiter);
+
+// Built-in Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/blog-platform';
-
-mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('✅ Connected to MongoDB');
-    console.log(`📦 Database: ${mongoose.connection.name}`);
-})
-.catch((err) => {
-    console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
-});
-
 // Routes
-const postRoutes = require('./routes/posts');
 app.use('/api/posts', postRoutes);
 
 // Root route
 app.get('/', (req, res) => {
-    res.json({
-        message: '🚀 Real-Time Blog Platform API',
-        version: '1.0.0',
-        endpoints: {
-            posts: '/api/posts',
-            featured: '/api/posts/featured',
-            stats: '/api/posts/stats'
-        }
-    });
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-        success: false,
-        error: 'Something went wrong!',
-        message: err.message
-    });
+  res.json({
+    message: '🚀 Real-Time Blog Platform API',
+    version: '1.0.0'
+  });
 });
 
 // 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        error: 'Route not found'
-    });
+app.use((req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error);
 });
+
+// Global Error Handler
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📡 API available at http://localhost:${PORT}/api`);
+  console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`);
 });
